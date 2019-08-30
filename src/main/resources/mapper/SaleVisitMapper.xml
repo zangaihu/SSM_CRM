@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sh.mapper.SaleVisitMapper">
+  <resultMap id="BaseResultMap" type="com.sh.entiy.SaleVisit">
+    <id column="visit_id" jdbcType="VARCHAR" property="visitId" />
+    <result column="visit_cust_id" jdbcType="BIGINT" property="visitCustId" />
+    <result column="visit_user_id" jdbcType="BIGINT" property="visitUserId" />
+    <result column="visit_time" jdbcType="DATE" property="visitTime" />
+    <result column="visit_interviewee" jdbcType="VARCHAR" property="visitInterviewee" />
+    <result column="visit_addr" jdbcType="VARCHAR" property="visitAddr" />
+    <result column="visit_detail" jdbcType="VARCHAR" property="visitDetail" />
+    <result column="visit_nexttime" jdbcType="DATE" property="visitNexttime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    visit_id, visit_cust_id, visit_user_id, visit_time, visit_interviewee, visit_addr, 
+    visit_detail, visit_nexttime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sale_visit
+    where visit_id = #{visitId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sale_visit
+    where visit_id = #{visitId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sh.entiy.SaleVisit">
+    insert into sale_visit (visit_id, visit_cust_id, visit_user_id, 
+      visit_time, visit_interviewee, visit_addr, 
+      visit_detail, visit_nexttime)
+    values (#{visitId,jdbcType=VARCHAR}, #{visitCustId,jdbcType=BIGINT}, #{visitUserId,jdbcType=BIGINT}, 
+      #{visitTime,jdbcType=DATE}, #{visitInterviewee,jdbcType=VARCHAR}, #{visitAddr,jdbcType=VARCHAR}, 
+      #{visitDetail,jdbcType=VARCHAR}, #{visitNexttime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sh.entiy.SaleVisit">
+    insert into sale_visit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="visitId != null">
+        visit_id,
+      </if>
+      <if test="visitCustId != null">
+        visit_cust_id,
+      </if>
+      <if test="visitUserId != null">
+        visit_user_id,
+      </if>
+      <if test="visitTime != null">
+        visit_time,
+      </if>
+      <if test="visitInterviewee != null">
+        visit_interviewee,
+      </if>
+      <if test="visitAddr != null">
+        visit_addr,
+      </if>
+      <if test="visitDetail != null">
+        visit_detail,
+      </if>
+      <if test="visitNexttime != null">
+        visit_nexttime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="visitId != null">
+        #{visitId,jdbcType=VARCHAR},
+      </if>
+      <if test="visitCustId != null">
+        #{visitCustId,jdbcType=BIGINT},
+      </if>
+      <if test="visitUserId != null">
+        #{visitUserId,jdbcType=BIGINT},
+      </if>
+      <if test="visitTime != null">
+        #{visitTime,jdbcType=DATE},
+      </if>
+      <if test="visitInterviewee != null">
+        #{visitInterviewee,jdbcType=VARCHAR},
+      </if>
+      <if test="visitAddr != null">
+        #{visitAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="visitDetail != null">
+        #{visitDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="visitNexttime != null">
+        #{visitNexttime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sh.entiy.SaleVisit">
+    update sale_visit
+    <set>
+      <if test="visitCustId != null">
+        visit_cust_id = #{visitCustId,jdbcType=BIGINT},
+      </if>
+      <if test="visitUserId != null">
+        visit_user_id = #{visitUserId,jdbcType=BIGINT},
+      </if>
+      <if test="visitTime != null">
+        visit_time = #{visitTime,jdbcType=DATE},
+      </if>
+      <if test="visitInterviewee != null">
+        visit_interviewee = #{visitInterviewee,jdbcType=VARCHAR},
+      </if>
+      <if test="visitAddr != null">
+        visit_addr = #{visitAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="visitDetail != null">
+        visit_detail = #{visitDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="visitNexttime != null">
+        visit_nexttime = #{visitNexttime,jdbcType=DATE},
+      </if>
+    </set>
+    where visit_id = #{visitId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sh.entiy.SaleVisit">
+    update sale_visit
+    set visit_cust_id = #{visitCustId,jdbcType=BIGINT},
+      visit_user_id = #{visitUserId,jdbcType=BIGINT},
+      visit_time = #{visitTime,jdbcType=DATE},
+      visit_interviewee = #{visitInterviewee,jdbcType=VARCHAR},
+      visit_addr = #{visitAddr,jdbcType=VARCHAR},
+      visit_detail = #{visitDetail,jdbcType=VARCHAR},
+      visit_nexttime = #{visitNexttime,jdbcType=DATE}
+    where visit_id = #{visitId,jdbcType=VARCHAR}
+  </update>
+
+  <resultMap id="ReultMapTotal" type="com.sh.entiy.SaleVisit">
+    <id column="visit_id" jdbcType="VARCHAR" property="visitId" />
+    <result column="visit_time" jdbcType="DATE" property="visitTime" />
+    <result column="visit_interviewee" jdbcType="VARCHAR" property="visitInterviewee" />
+    <result column="visit_addr" jdbcType="VARCHAR" property="visitAddr" />
+    <result column="visit_detail" jdbcType="VARCHAR" property="visitDetail" />
+    <result column="visit_nexttime" jdbcType="DATE" property="visitNexttime" />
+    <association property="customer" javaType="com.sh.entiy.Customer">
+      <id column="cust_id" property="custId"></id>
+      <result property="custName" column="cust_name"></result>
+    </association>
+    <association property="employee" javaType="com.sh.entiy.Employee">
+      <id property="sn" column="sn"></id>
+      <result property="name" column="name"></result>
+    </association>
+  </resultMap>
+
+
+  <select id="selectvisit" resultMap="ReultMapTotal">
+    select * from sale_visit sv
+    join cst_customer cs
+    on cs.cust_id = sv.visit_cust_id
+    join employee e
+    on sv.visit_user_id=e.sn
+  </select>
+
+  <select id="getVisitSelective" resultMap="ReultMapTotal" parameterType="SaleVisit">
+
+    select * from sale_visit sv
+    join cst_customer cs
+    on cs.cust_id = sv.visit_cust_id
+    join employee e
+    on sv.visit_user_id=e.sn
+    <where>
+
+        <![CDATA[  and DATE_FORMAT(visit_time, '%Y-%m-%d') =
+                        DATE_FORMAT(#{visitTime,jdbcType=DATE}, '%Y-%m-%d')   ]]>
+
+    </where>
+  </select>
+
+
+
+
+</mapper>

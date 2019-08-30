@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.mapper.SysUserMapper" >
+  <resultMap id="BaseResultMap" type="com.sh.entiy.SysUser" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_code" property="userCode" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_state" property="userState" jdbcType="CHAR" />
+    <result column="user_role" property="userRole" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_code, user_name, user_password, user_state, user_role
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sh.entiy.SysUser" >
+    insert into sys_user (user_id, user_code, user_name, 
+      user_password, user_state)
+    values (#{userId,jdbcType=BIGINT}, #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{userState,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sh.entiy.SysUser" >
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userCode != null" >
+        user_code,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userState != null" >
+        user_state,
+      </if>
+      <if test="userRole != null" >
+        user_role
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userCode != null" >
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null" >
+        #{userState,jdbcType=CHAR},
+      </if>
+      <if test="userState != null" >
+        #{userRole,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+<!--  管理员更新用户-->
+  <update id="updateByPrimaryKeySelective" parameterType="com.sh.entiy.SysUser" >
+    update sys_user
+    <set >
+      <if test="userCode != null" >
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null" >
+        user_state = #{userState,jdbcType=CHAR},
+      </if>
+         <if test="userRole != null" >
+        user_role = #{userRole,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+
+
+
+  <select id="selectByNameAndUserPassword" resultMap="BaseResultMap">
+    select * from sys_user where user_code=#{usercode} and user_password=#{password}
+  </select>
+
+  <select id="selectForVisit" resultMap="BaseResultMap">
+    select * from sys_user
+  </select>
+
+  <select id="selectUserList" resultMap="BaseResultMap">
+    select * from sys_user
+  </select>
+
+
+  <insert id="insertRegister" parameterType="SysUser">
+    insert into sys_user values (null,#{userCode},#{userName},#{userPassword},"1")
+  </insert>
+
+  <update id="updatepassword" parameterType="SysUser">
+
+    update sys_user set password =#{userPassword}  where user_id=#{userId}
+  </update>
+
+  <insert id="insertUser" parameterType="SysUser">
+    insert into sys_user  (user_id, user_code, user_name,
+      user_password, user_state, user_role) values (null,#{userCode},#{userName},#{userPassword},#{userState},#{userRole})
+  </insert>
+
+
+  <delete id="deleteUser" parameterType="java.lang.Long" >
+    delete from sys_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+
+</mapper>

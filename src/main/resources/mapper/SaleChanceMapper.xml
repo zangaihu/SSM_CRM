@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sh.mapper.SaleChanceMapper">
+  <resultMap id="BaseResultMap" type="com.sh.entiy.SaleChance">
+    <id column="chan_id" jdbcType="BIGINT" property="chanId" />
+    <result column="chan_name" jdbcType="VARCHAR" property="chanName" />
+    <result column="chan_cust_id" jdbcType="BIGINT" property="chanCustId" />
+    <result column="chan_user_id" jdbcType="BIGINT" property="chanUserId" />
+    <result column="chan_money" jdbcType="INTEGER" property="chanMoney" />
+    <result column="chan_type" jdbcType="VARCHAR" property="chanType" />
+    <result column="chan_source" jdbcType="VARCHAR" property="chanSource" />
+    <result column="chan_state" jdbcType="VARCHAR" property="chanState" />
+    <result column="chan_linktime" jdbcType="DATE" property="chanLinktime" />
+    <result column="chan_desc" jdbcType="VARCHAR" property="chanDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    chan_id, chan_name, chan_cust_id, chan_user_id, chan_money, chan_type, chan_source, 
+    chan_state, chan_linktime, chan_desc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sale_chance
+    where chan_id = #{chanId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sale_chance
+    where chan_id = #{chanId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sh.entiy.SaleChance">
+    insert into sale_chance (chan_id, chan_name, chan_cust_id, 
+      chan_user_id, chan_money, chan_type, 
+      chan_source, chan_state, chan_linktime, 
+      chan_desc)
+    values (#{chanId,jdbcType=BIGINT}, #{chanName,jdbcType=VARCHAR}, #{chanCustId,jdbcType=BIGINT}, 
+      #{chanUserId,jdbcType=BIGINT}, #{chanMoney,jdbcType=INTEGER}, #{chanType,jdbcType=VARCHAR}, 
+      #{chanSource,jdbcType=VARCHAR}, #{chanState,jdbcType=VARCHAR}, #{chanLinktime,jdbcType=DATE}, 
+      #{chanDesc,jdbcType=VARCHAR})
+  </insert>
+
+
+<!--  新增业务-->
+  <insert id="insertSelective" parameterType="com.sh.entiy.SaleChance">
+    insert into sale_chance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="chanId != null">
+        chan_id,
+      </if>
+      <if test="chanName != null">
+        chan_name,
+      </if>
+      <if test="chanCustId != null">
+        chan_cust_id,
+      </if>
+      <if test="chanUserId != null">
+        chan_user_id,
+      </if>
+      <if test="chanMoney != null">
+        chan_money,
+      </if>
+      <if test="chanType != null">
+        chan_type,
+      </if>
+      <if test="chanSource != null">
+        chan_source,
+      </if>
+      <if test="chanState != null">
+        chan_state,
+      </if>
+      <if test="chanLinktime != null">
+        chan_linktime,
+      </if>
+      <if test="chanDesc != null">
+        chan_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="chanId != null">
+        #{chanId,jdbcType=BIGINT},
+      </if>
+      <if test="chanName != null">
+        #{chanName,jdbcType=VARCHAR},
+      </if>
+      <if test="chanCustId != null">
+        #{chanCustId,jdbcType=BIGINT},
+      </if>
+      <if test="chanUserId != null">
+        #{chanUserId,jdbcType=BIGINT},
+      </if>
+      <if test="chanMoney != null">
+        #{chanMoney,jdbcType=INTEGER},
+      </if>
+      <if test="chanType != null">
+        #{chanType,jdbcType=VARCHAR},
+      </if>
+      <if test="chanSource != null">
+        #{chanSource,jdbcType=VARCHAR},
+      </if>
+      <if test="chanState != null">
+        #{chanState,jdbcType=VARCHAR},
+      </if>
+      <if test="chanLinktime != null">
+        #{chanLinktime,jdbcType=DATE},
+      </if>
+      <if test="chanDesc != null">
+        #{chanDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sh.entiy.SaleChance">
+    update sale_chance
+    <set>
+      <if test="chanName != null">
+        chan_name = #{chanName,jdbcType=VARCHAR},
+      </if>
+      <if test="chanCustId != null">
+        chan_cust_id = #{chanCustId,jdbcType=BIGINT},
+      </if>
+      <if test="chanUserId != null">
+        chan_user_id = #{chanUserId,jdbcType=BIGINT},
+      </if>
+      <if test="chanMoney != null">
+        chan_money = #{chanMoney,jdbcType=INTEGER},
+      </if>
+      <if test="chanType != null">
+        chan_type = #{chanType,jdbcType=VARCHAR},
+      </if>
+      <if test="chanSource != null">
+        chan_source = #{chanSource,jdbcType=VARCHAR},
+      </if>
+      <if test="chanState != null">
+        chan_state = #{chanState,jdbcType=VARCHAR},
+      </if>
+      <if test="chanLinktime != null">
+        chan_linktime = #{chanLinktime,jdbcType=DATE},
+      </if>
+      <if test="chanDesc != null">
+        chan_desc = #{chanDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where chan_id = #{chanId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sh.entiy.SaleChance">
+    update sale_chance
+    set chan_name = #{chanName,jdbcType=VARCHAR},
+      chan_cust_id = #{chanCustId,jdbcType=BIGINT},
+      chan_user_id = #{chanUserId,jdbcType=BIGINT},
+      chan_money = #{chanMoney,jdbcType=INTEGER},
+      chan_type = #{chanType,jdbcType=VARCHAR},
+      chan_source = #{chanSource,jdbcType=VARCHAR},
+      chan_state = #{chanState,jdbcType=VARCHAR},
+      chan_linktime = #{chanLinktime,jdbcType=DATE},
+      chan_desc = #{chanDesc,jdbcType=VARCHAR}
+    where chan_id = #{chanId,jdbcType=BIGINT}
+  </update>
+
+
+
+
+
+  <resultMap id="Result" type="com.sh.entiy.SaleChance">
+    <id column="chan_id" jdbcType="BIGINT" property="chanId" />
+    <result column="chan_name" jdbcType="VARCHAR" property="chanName" />
+    <result column="chan_cust_id" property="chanCustId"></result>
+    <result column="chan_user_id" property="chanUserId"></result>
+    <result column="chan_money" jdbcType="INTEGER" property="chanMoney" />
+    <result column="chan_type" jdbcType="VARCHAR" property="chanType" />
+    <result column="chan_source" jdbcType="VARCHAR" property="chanSource" />
+    <result column="chan_state" jdbcType="VARCHAR" property="chanState" />
+    <result column="chan_linktime" jdbcType="DATE" property="chanLinktime" />
+    <result column="chan_desc" jdbcType="VARCHAR" property="chanDesc" />
+    <association property="customer" javaType="com.sh.entiy.Customer" >
+      <id property="custId" column="cust_id"></id>
+      <result column="cust_name" property="custName"></result>
+    </association>
+<association property="employee" javaType="com.sh.entiy.Employee">
+    <id property="sn" column="sn"></id>
+    <result column="name" property="name"></result>
+</association>
+  </resultMap>
+
+  <select id="selectAll" resultMap="Result">
+    SELECT  * from sale_chance sc
+    join cst_customer cus
+    on sc.chan_cust_id=cus.cust_id
+    join employee e
+    on sc.chan_user_id=e.sn
+    order by sc.chan_id desc
+  </select>
+
+
+  <select id="chanceAns" resultType="hashmap">
+
+    select
+count(case when chan_state='意向客户 ' then 1 else null end) c1,
+count(case when chan_state='初步沟通' then 1 else null end) c2,
+count(case when chan_state='深度沟通' then 1 else null end) c3,
+count(case when chan_state='签订合同' then 1 else null end) c4
+from sale_chance;
+  </select>
+    
+    
+    <select id="selectonechance" resultMap="Result">
+        select * from sale_chance where chan_id=#{chan}
+    </select>
+
+
+  <select id="getAllChanceSelective" resultMap="Result" parameterType="SaleChance">
+    SELECT  * from sale_chance sc
+    join cst_customer cus
+    on sc.chan_cust_id=cus.cust_id
+    join employee e
+    on sc.chan_user_id=e.sn
+    <where>
+      <if test="chanState !='' and chanState != null ">
+        and chan_state = #{chanState}
+      </if>
+
+
+
+    </where>
+  </select>
+
+</mapper>
